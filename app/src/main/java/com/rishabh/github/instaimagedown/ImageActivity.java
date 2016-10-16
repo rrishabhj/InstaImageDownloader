@@ -79,6 +79,7 @@ public class ImageActivity extends AppCompatActivity {
                             @Override
                             public void onBitmapSaved() {
                                 Toast.makeText(ImageActivity.this, "Image saved as: " + myImageFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                                new SingleMediaScanner(getApplicationContext(), myImageFile);
                             }
 
                             @Override
