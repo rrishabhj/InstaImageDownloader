@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ImageActivity"/>
+        <activity android:name=".ImageActivity" />
     </application>
 
 </manifest>

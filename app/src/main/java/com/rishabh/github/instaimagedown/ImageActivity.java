@@ -27,11 +27,12 @@ public class ImageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         name = getIntent().getStringExtra(KEY_NAME);
         final String url = getIntent().getStringExtra(KEY_URL);
 
         setContentView(R.layout.activity_image_basic_dm);
-        getSupportActionBar().setTitle("BasicImageDownloader demo");
+        getSupportActionBar().setTitle("Image Downloaded");
         imgDisplay = (ImageView) findViewById(R.id.imgResult);
         imgDisplay.setImageResource(RES_PLACEHOLDER);
         final TextView tvPercent = (TextView) findViewById(R.id.tvPercent);
