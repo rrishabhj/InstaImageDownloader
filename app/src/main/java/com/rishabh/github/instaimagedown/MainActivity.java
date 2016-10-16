@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "nothing found to paste", Toast.LENGTH_SHORT).show();
                 }
                 ClipData.Item toPaste = data.getItemAt(0);
-                editTexturl.setText(toPaste.toString());
+                editTexturl.setText(toPaste.getText().toString());
                 editTexturl.setSelection(editTexturl.getText().length());
                 break;
 
