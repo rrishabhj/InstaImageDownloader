@@ -129,7 +129,7 @@
         android:id="@+id/textView5" />
 
     <TextView
-        android:text="4. Enter file name if you want to. Hit the download Button and you'r DONE!"
+        android:text="4. Enter file name if you want to. Hit the download Button. Voila!  Image downloaded!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView5"
