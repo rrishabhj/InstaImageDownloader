@@ -33,42 +33,26 @@ import com.rishabh.github.instaimagedown.floatingbutton.DeleteActionActivity;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewListener;
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
 
-/**
- * FloatingViewのカスタマイズを行います。
- * サンプルとしてクリック時にはメールアプリを起動します。
- */
+
 public class CustomFloatingViewService extends Service implements FloatingViewListener {
 
-    /**
-     * デバッグログ用のタグ
-     */
     private static final String TAG = "CustomFloatingViewService";
 
-    /**
-     * 通知ID
-     */
     private static final int NOTIFICATION_ID = 908114;
 
-    /**
-     * CustomFloatingViewServiceBinder
-     */
     private IBinder mCustomFloatingViewServiceBinder;
 
-    /**
-     * FloatingViewManager
-     */
     private FloatingViewManager mFloatingViewManager;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // 既にManagerが存在していたら何もしない
+
         if (mFloatingViewManager != null) {
             return START_STICKY;
         }
@@ -84,14 +68,18 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
             public void onClick(View v) {
 
                 String imageUrl=getURL();
-                downloadImage(imageUrl);
 
-//                // メールアプリの起動
-//                final Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", getString(R.string.mail_address), null));
-//                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_title));
-//                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.mail_content));
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
+                Pattern patt= Pattern.compile("https://www.instagram.com/p/.");
+                Matcher matcher=patt.matcher(imageUrl);
+
+                 if(matcher.find()){
+                     Toast.makeText(getApplicationContext(),"Downloading started",Toast.LENGTH_LONG).show();
+                     downloadImage(imageUrl);
+                }else{
+                     Toast.makeText(getApplicationContext(),"Wrong URL, copy sharable url",Toast.LENGTH_LONG).show();
+                }
+
+
             }
         });
 
@@ -104,24 +92,22 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
         final FloatingViewManager.Options options = loadOptions(metrics);
         mFloatingViewManager.addViewToWindow(iconView, options);
 
-        // 常駐起動
         startForeground(NOTIFICATION_ID, createNotification());
 
         return START_REDELIVER_INTENT;
     }
 
     private void downloadImage(String url) {
+
         DownloadManager.Request request = null;
         try {
             request = new DownloadManager.Request(Uri.parse(url));
         } catch (IllegalArgumentException e) {
         }
-                /* allow mobile and WiFi downloads */
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
         request.setTitle("DM Example");
         request.setDescription("Downloading file");
 
-                /* we let the user see the download in a notification */
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
                 /* Try to determine the file extension from the url. Only allow image types. You
                  * can skip this check if you only plan to handle the downloaded file manually and

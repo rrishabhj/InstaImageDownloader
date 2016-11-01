@@ -101,7 +101,7 @@
         android:textColor="#000000" />
 
     <TextView
-        android:text="!. Open Instagram and select options of the selected post."
+        android:text="1. Open Instagram and select options of the selected post."
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
