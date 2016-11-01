@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InstaImageDown</string>
-    <string name="content_text">Image downloading</string>
-    <string name="insta_content_title">InstaContent Active</string>
+    <string name="app_name">Instant Insta</string>
+    <string name="content_text">Floating button On</string>
+    <string name="insta_content_title">Instant Insta</string>
 </resources>

@@ -229,7 +229,7 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
     private Notification createNotification() {
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setWhen(System.currentTimeMillis());
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.drawable.ic_insta_logo);
         builder.setContentTitle(getString(R.string.insta_content_title));
         builder.setContentText(getString(R.string.content_text));
         builder.setOngoing(true);
