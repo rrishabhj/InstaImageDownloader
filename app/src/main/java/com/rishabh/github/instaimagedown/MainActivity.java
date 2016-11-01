@@ -2,6 +2,7 @@ package com.rishabh.github.instaimagedown;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -14,8 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.rishabh.github.instaimagedown.service.CustomFloatingViewService;
@@ -27,18 +29,18 @@ public class MainActivity extends AppCompatActivity {
     EditText editTexturl;
     EditText nameTxt;
     private static final int CUSTOM_OVERLAY_PERMISSION_REQUEST_CODE = 101;
-    Button fSwitch;
+    Switch fSwitch;
     private boolean switchStatus=true;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setTitle("");
 
         setContentView(R.layout.activity_main);
 
-        fSwitch= (Button) findViewById(R.id.floatingButton);
+        fSwitch= (Switch) findViewById(R.id.floatingButton);
 
         editTexturl = (EditText) findViewById(R.id.edittxturl);
         nameTxt = (EditText) findViewById(R.id.nameTxt);
@@ -47,12 +49,17 @@ public class MainActivity extends AppCompatActivity {
 //        switchStatus=pref.getBoolean("TOGGLE_FBUTTON",true);
 
         //if(switchStatus){
-          fSwitch.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  showCustomFloatingView(getApplicationContext(), true);
-              }
-          });
+
+        fSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    showCustomFloatingView(getApplicationContext(), true);
+                }else{
+                    stopService(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -65,9 +72,27 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.aboutbtn:
+            case R.id.settings:
                 Toast.makeText(getApplicationContext(), "Developed by Rishabh Jindal", Toast.LENGTH_LONG).show();
                 break;
+            case R.id.playStore:
+                Toast.makeText(getApplicationContext(),"Rate Instant Insta",Toast.LENGTH_LONG).show();
+
+                Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                // To count with Play market backstack, After pressing back button,
+                // to taken back to our application, we need to add following flags to intent.
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                }
+                break;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -126,14 +151,15 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NewApi")
     private void showCustomFloatingView(Context context, boolean isShowOverlayPermission) {
         // API22以下かチェック
+        intent=new Intent(context, CustomFloatingViewService.class);
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            context.startService(new Intent(context, CustomFloatingViewService.class));
+            context.startService(intent);
             return;
         }
 
         // 他のアプリの上に表示できるかチェック
         if (Settings.canDrawOverlays(context)) {
-            context.startService(new Intent(context, CustomFloatingViewService.class));
+            context.startService(intent);
             return;
         }
 

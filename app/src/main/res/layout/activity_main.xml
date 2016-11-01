@@ -137,13 +137,23 @@
         android:layout_alignParentStart="true"
         android:id="@+id/textView6" />
 
-    <Button
-        android:text="Button"
+
+    <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/floatingButton"
+        android:checked="false"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/btnDownload"
-        android:layout_alignEnd="@+id/btnDownload"
-        android:id="@+id/floatingButton" />
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toggle Floating Button"
+        android:textColor="@color/colorAccent"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_above="@+id/floatingButton"
+        android:layout_centerHorizontal="true"
+        android:textStyle="normal|bold" />
 
 </RelativeLayout>
