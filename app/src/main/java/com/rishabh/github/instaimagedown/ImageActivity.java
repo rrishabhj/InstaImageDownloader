@@ -59,8 +59,9 @@ public class ImageActivity extends AppCompatActivity {
 
                 final Bitmap.CompressFormat mFormat = Bitmap.CompressFormat.JPEG;
 
+
                 final File myImageFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        File.separator + "image_test" + File.separator + name + "." + mFormat.name().toLowerCase());
+                        File.separator + "InstagramImageDownloader" + File.separator + name + "." + mFormat.name().toLowerCase());
                 BasicImageDownloader.writeToDisk(myImageFile, result, new BasicImageDownloader.OnBitmapSaveListener() {
                     @Override
                     public void onBitmapSaved() {

@@ -136,4 +136,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView6" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btnDownload"
+        android:layout_alignEnd="@+id/btnDownload"
+        android:id="@+id/floatingButton" />
+
 </RelativeLayout>
