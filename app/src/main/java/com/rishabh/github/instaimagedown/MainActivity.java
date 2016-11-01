@@ -45,11 +45,6 @@ public class MainActivity extends AppCompatActivity {
         editTexturl = (EditText) findViewById(R.id.edittxturl);
         nameTxt = (EditText) findViewById(R.id.nameTxt);
 
-//        SharedPreferences pref= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        switchStatus=pref.getBoolean("TOGGLE_FBUTTON",true);
-
-        //if(switchStatus){
-
         fSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -57,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     showCustomFloatingView(getApplicationContext(), true);
                 }else{
                     stopService(intent);
+                    fSwitch.setChecked(false);
                 }
             }
         });
@@ -72,8 +68,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.settings:
+            case R.id.about:
                 Toast.makeText(getApplicationContext(), "Developed by Rishabh Jindal", Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(this,AboutActivity.class);
+                startActivity(intent);
                 break;
             case R.id.playStore:
                 Toast.makeText(getApplicationContext(),"Rate Instant Insta",Toast.LENGTH_LONG).show();
@@ -92,6 +90,27 @@ public class MainActivity extends AppCompatActivity {
                             Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
                 }
                 break;
+
+            case R.id.share:
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Download InstantInsta\n A flexible Instagram image downloader"+
+                        "http://play.google.com/store/apps/details?id=" + getPackageName();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+
+                break;
+            case R.id.feedback:
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","g2.jindal@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "InstantInsta Feedback");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                break;
+
+
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -150,20 +169,18 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
     private void showCustomFloatingView(Context context, boolean isShowOverlayPermission) {
-        // API22以下かチェック
+
         intent=new Intent(context, CustomFloatingViewService.class);
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
             context.startService(intent);
             return;
         }
 
-        // 他のアプリの上に表示できるかチェック
         if (Settings.canDrawOverlays(context)) {
             context.startService(intent);
             return;
         }
 
-        // オーバレイパーミッションの表示
         if (isShowOverlayPermission) {
             final Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + context.getPackageName()));
             startActivityForResult(intent, CUSTOM_OVERLAY_PERMISSION_REQUEST_CODE);

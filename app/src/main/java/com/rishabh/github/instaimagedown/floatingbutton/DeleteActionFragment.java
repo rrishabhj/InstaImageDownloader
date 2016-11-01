@@ -12,36 +12,19 @@ import android.view.ViewGroup;
 import com.rishabh.github.instaimagedown.R;
 
 
-/**
- * FloatingViewのサンプルサービスを削除するフラグメントです。
- */
 public class DeleteActionFragment extends Fragment {
 
-    /**
-     * DeleteActionCallback
-     */
     private DeleteActionCallback mDeleteActionCallback;
 
-    /**
-     * DeleteActionFragmentを生成します。
-     *
-     * @return DeleteActionFragment
-     */
     public static DeleteActionFragment newInstance() {
         final DeleteActionFragment fragment = new DeleteActionFragment();
         return fragment;
     }
 
-    /**
-     * コンストラクタ
-     */
     public DeleteActionFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
@@ -51,21 +34,12 @@ public class DeleteActionFragment extends Fragment {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         onAttachFragment(context);
     }
 
-    /**
-     * onAttach(Activity)のbackport用メソッド
-     * INFO:support v13を使用しているため現在はこの方法しかできない
-     *
-     * @param context Context
-     */
     private void onAttachFragment(Context context) {
         try {
             mDeleteActionCallback = (DeleteActionCallback) context;
@@ -75,9 +49,6 @@ public class DeleteActionFragment extends Fragment {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_delete_action, container, false);
@@ -92,14 +63,8 @@ public class DeleteActionFragment extends Fragment {
         return rootView;
     }
 
-    /**
-     * 設定アクションのコールバックです。
-     */
     public interface DeleteActionCallback {
 
-        /**
-         * デモ表示を削除します。
-         */
         void clearFloatingView();
 
     }

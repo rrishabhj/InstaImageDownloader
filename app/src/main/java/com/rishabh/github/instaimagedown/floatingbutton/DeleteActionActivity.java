@@ -13,29 +13,14 @@ import android.os.IBinder;
 import com.rishabh.github.instaimagedown.R;
 import com.rishabh.github.instaimagedown.service.CustomFloatingViewService;
 
-/**
- * 通知から起動後に削除アクションを行う画面です。
- */
 public class DeleteActionActivity extends Activity implements ServiceConnection, DeleteActionFragment.DeleteActionCallback {
 
-    /**
-     * デバッグログ用のタグ
-     */
     private static final String TAG = "DeleteActionActivity";
 
-    /**
-     * 設定フラグメントのタグ
-     */
     private static final String FRAGMENT_TAG_DELETE_ACTION = "delete_action";
 
-    /**
-     * 削除対象のService
-     */
     private Service mTargetService;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,31 +34,21 @@ public class DeleteActionActivity extends Activity implements ServiceConnection,
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         mTargetService = ((CustomFloatingViewService.CustomFloatingViewServiceBinder) service).getService();
 
-        // バインド直後に即切り
         if (mTargetService != null) {
             unbindService(this);
             mTargetService.stopSelf();
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onServiceDisconnected(ComponentName name) {
         mTargetService = null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void clearFloatingView() {
         bindService(new Intent(this, CustomFloatingViewService.class), this, Context.BIND_AUTO_CREATE);

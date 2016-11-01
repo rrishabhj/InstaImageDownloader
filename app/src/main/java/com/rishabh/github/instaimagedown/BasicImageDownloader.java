@@ -205,6 +205,8 @@ public class BasicImageDownloader {
                                    @NonNull final OnBitmapSaveListener listener,
                                    @NonNull final Bitmap.CompressFormat format, boolean shouldOverwrite) {
 
+        
+
         if (imageFile.isDirectory()) {
             listener.onBitmapSaveError(new ImageError("the specified path points to a directory, " +
                     "should be a file").setErrorCode(ImageError.ERROR_IS_DIRECTORY));

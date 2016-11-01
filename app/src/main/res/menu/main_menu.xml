@@ -7,9 +7,19 @@
         android:icon="@drawable/favorite_heart_button"
         app:showAsAction="always"/>
 
-    <item android:title="Settings"
-        android:id="@+id/settings"
-        app:showAsAction="never">
+    <item
+        android:title="Share"
+        android:id="@+id/share"
+        android:icon="@drawable/share_button"
+        app:showAsAction="always"/>
 
-    </item>
+    <item android:title="About"
+        android:id="@+id/about"
+        app:showAsAction="never"/>
+
+    <item android:title="FeedBack"
+        android:id="@+id/feedback"
+        app:showAsAction="never"/>
+
+
 </menu>

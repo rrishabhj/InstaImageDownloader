@@ -90,6 +90,7 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
         loadDynamicOptions();
         // Initial Setting Options (you can't change options after created.)
         final FloatingViewManager.Options options = loadOptions(metrics);
+
         mFloatingViewManager.addViewToWindow(iconView, options);
 
         startForeground(NOTIFICATION_ID, createNotification());
@@ -105,8 +106,8 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
         } catch (IllegalArgumentException e) {
         }
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        request.setTitle("DM Example");
-        request.setDescription("Downloading file");
+        request.setTitle("Instant Insta");
+        request.setDescription("Downloading Image");
 
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
                 /* Try to determine the file extension from the url. Only allow image types. You
@@ -160,9 +161,8 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
                         }
 
                         String path = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                        Toast.makeText(getApplicationContext(), "File download complete. Location: \n" +
-                                 path, Toast.LENGTH_LONG).show();
-//                    tvStatus.setText("File download complete. Location: \n" + path);
+
+                        Toast.makeText(getApplicationContext(),"Image Downloaded",Toast.LENGTH_LONG).show();
                     }
                 }
             };
@@ -244,13 +244,11 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
         return builder.build();
     }
 
-    /**
-     * 動的に変更可能なオプションを読み込みます。
-     */
+
     private void loadDynamicOptions() {
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final String displayModeSettings = sharedPref.getString("settings_display_mode", "");
+        final String displayModeSettings = sharedPref.getString("settings_display_mode", "FullScreen");
         if ("Always".equals(displayModeSettings)) {
             mFloatingViewManager.setDisplayMode(FloatingViewManager.DISPLAY_MODE_SHOW_ALWAYS);
         } else if ("FullScreen".equals(displayModeSettings)) {
@@ -261,18 +259,12 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
 
     }
 
-    /**
-     * FloatingViewのオプションを読み込みます。
-     *
-     * @param metrics X/Y座標の設定に利用するDisplayMetrics
-     * @return Options
-     */
     private FloatingViewManager.Options loadOptions(DisplayMetrics metrics) {
         final FloatingViewManager.Options options = new FloatingViewManager.Options();
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Shape
-        final String shapeSettings = sharedPref.getString("settings_shape", "");
+        final String shapeSettings = sharedPref.getString("settings_shape", "Circle");
         if ("Circle".equals(shapeSettings)) {
             options.shape = FloatingViewManager.SHAPE_CIRCLE;
         } else if ("Rectangle".equals(shapeSettings)) {
@@ -284,7 +276,7 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
         options.overMargin = Integer.parseInt(marginSettings);
 
         // MoveDirection
-        final String moveDirectionSettings = sharedPref.getString("settings_move_direction", "");
+        final String moveDirectionSettings = sharedPref.getString("settings_move_direction", "Default");
         if ("Default".equals(moveDirectionSettings)) {
             options.moveDirection = FloatingViewManager.MOVE_DIRECTION_DEFAULT;
         } else if ("Left".equals(moveDirectionSettings)) {
@@ -296,8 +288,8 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
         }
 
         // Init X/Y
-        final String initXSettings = sharedPref.getString("settings_init_x", "");
-        final String initYSettings = sharedPref.getString("settings_init_y", "");
+        final String initXSettings = sharedPref.getString("settings_init_x", "0");
+        final String initYSettings = sharedPref.getString("settings_init_y", "1.0");
         if (!TextUtils.isEmpty(initXSettings) && !TextUtils.isEmpty(initYSettings)) {
             final int offset = (int) (48 + 8 * metrics.density);
             options.floatingViewX = (int) (metrics.widthPixels * Float.parseFloat(initXSettings) - offset);
@@ -311,30 +303,15 @@ public class CustomFloatingViewService extends Service implements FloatingViewLi
         return options;
     }
 
-    /**
-     * CustomFloatingServiceのBinderです。
-     */
+
     public static class CustomFloatingViewServiceBinder extends Binder {
 
-        /**
-         * CustomFloatingViewService
-         */
         private final WeakReference<CustomFloatingViewService> mService;
 
-        /**
-         * コンストラクタ
-         *
-         * @param service CustomFloatingViewService
-         */
         CustomFloatingViewServiceBinder(CustomFloatingViewService service) {
             mService = new WeakReference<>(service);
         }
 
-        /**
-         * CustomFloatingViewServiceを取得します。
-         *
-         * @return CustomFloatingViewService
-         */
         public CustomFloatingViewService getService() {
             return mService.get();
         }
