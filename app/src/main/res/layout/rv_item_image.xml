@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <android.support.v7.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:cardElevation="5dp"
+      app:borderWidth="0dp"
+      app:cardUseCompatPadding="true"
+      android:minHeight="118dp"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+
+      <FrameLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          >
+    <ImageView
+        android:src="@drawable/imageinsta"
+        android:id="@+id/imageView"
+        android:scaleType="fitXY"
+        android:layout_width="92dp"
+        android:layout_height="110dp"
+        />
+
+        <ImageView
+            android:id="@+id/ivItemPlay"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_play_btn"
+            android:layout_margin="20dp"
+            android:elevation="15dp"
+            android:visibility="invisible"/>
+
+      </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="12dp"
+        >
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="3"
+          android:orientation="horizontal"
+          >
+
+        <TextView
+            android:id="@+id/tvCaption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:text="lorum aefaf aefai fae faoieuf aeof asadfafmasfiamsofmaofmaaasfckasflaniifoaoaridhabh asidnad anwid aniwd naiw dnai dna nda a"
+            android:paddingBottom="4dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textColor="#000000"
+            />
+
+
+        <ImageView
+            android:id="@+id/ivsettings"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_settings"
+            />
+
+      </LinearLayout>
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:orientation="horizontal"
+          >
+
+        <TextView
+            android:text="REPOST"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvRepost"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:layout_marginRight="12dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:elegantTextHeight="true"
+            android:textStyle="normal|bold"
+
+            />
+        <TextView
+            android:text="DELETE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDelete"
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark"
+            android:elegantTextHeight="true"
+            android:textStyle="normal|bold"
+            />
+      </LinearLayout>
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+  </android.support.v7.widget.CardView>
+
+</LinearLayout>

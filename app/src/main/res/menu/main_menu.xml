@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/playStore"
-        android:title="Rate"
-        android:icon="@drawable/favorite_heart_button"
-        app:showAsAction="always"/>
+  <item
+      android:title="Open Instagram"
+      android:id="@+id/instalogo"
+    android:icon="@drawable/ic_insta_128"
+      app:showAsAction="ifRoom"
 
-    <item
-        android:title="Share"
-        android:id="@+id/share"
-        android:icon="@drawable/share_button"
-        app:showAsAction="always"/>
-
-    <item android:title="About"
-        android:id="@+id/about"
-        app:showAsAction="never"/>
-
-    <item android:title="FeedBack"
-        android:id="@+id/feedback"
-        app:showAsAction="never"/>
-
-
+      />
 </menu>
