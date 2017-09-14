@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
 
         fSwitch= (Switch) findViewById(R.id.floatingButton);
 
